@@ -15,7 +15,7 @@ func (b *Ben) Hello() {
 	if name == "Ben" {
 		return
 	}
-	fmt.Printf("%T says, \"Hello my name is %s\"\n", b, name)
+	fmt.Printf("Ben says, \"Hello my name is %s\"\n", name)
 }
 
 type Jerry struct {
@@ -27,28 +27,23 @@ func (j *Jerry) Hello() {
 	if name == "Jerry" {
 		return
 	}
-	fmt.Printf("%T says, \"Hello my name is %s\"\n", j, name)
-}
-
-type Container struct {
-	IceCreamMaker
-	_ uintptr
+	fmt.Printf("Jerry says, \"Hello my name is %s\"\n", name)
 }
 
 func main() {
 	var ben = &Ben{"Ben"}
 	var jerry = &Jerry{"Jerry"}
-	var makers = make([]Container, 18)
+	var makers [18]IceCreamMaker
 
 	allbens := func() {
 		for i := range makers {
-			makers[i].IceCreamMaker = ben
+			makers[i] = ben
 		}
 	}
 
 	alljerrys := func() {
 		for i := range makers {
-			makers[i].IceCreamMaker = jerry
+			makers[i] = jerry
 		}
 	}
 
