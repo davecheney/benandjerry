@@ -3,6 +3,7 @@ package main
 import "fmt"
 
 type IceCreamMaker interface {
+	// Great a customer.
 	Hello()
 }
 
@@ -11,9 +12,6 @@ type Ben struct {
 }
 
 func (b *Ben) Hello() {
-	if b.name == "Ben" {
-		return
-	}
 	fmt.Printf("Ben says, \"Hello my name is %s\"\n", b.name)
 }
 
@@ -22,52 +20,29 @@ type Jerry struct {
 }
 
 func (j *Jerry) Hello() {
-	if j.name == "Jerry" {
-		return
-	}
 	fmt.Printf("Jerry says, \"Hello my name is %s\"\n", j.name)
 }
 
 func main() {
 	var ben = &Ben{"Ben"}
 	var jerry = &Jerry{"Jerry"}
-	var makers [18]IceCreamMaker
+	var maker IceCreamMaker = ben
 
-	allbens := func() {
-		for i := range makers {
-			makers[i] = ben
-		}
-	}
+	var loop0, loop1 func()
 
-	alljerrys := func() {
-		for i := range makers {
-			makers[i] = jerry
-		}
-	}
-
-	// set all the makers to ben
-	allbens()
-
-	var loop0, loop1, hello func()
 	loop0 = func() {
-		allbens()
+		maker = ben
 		go loop1()
 	}
 
 	loop1 = func() {
-		alljerrys()
+		maker = jerry
 		go loop0()
 	}
 
-	hello = func() {
-		for i := range makers {
-			makers[i].Hello()
-		}
-		go hello()
-	}
-
 	go loop0()
-	go hello()
 
-	select {}
+	for {
+		maker.Hello()
+	}
 }
