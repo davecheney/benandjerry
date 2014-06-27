@@ -11,11 +11,10 @@ type Ben struct {
 }
 
 func (b *Ben) Hello() {
-	name := b.name
-	if name == "Ben" {
+	if b.name == "Ben" {
 		return
 	}
-	fmt.Printf("Ben says, \"Hello my name is %s\"\n", name)
+	fmt.Printf("Ben says, \"Hello my name is %s\"\n", b.name)
 }
 
 type Jerry struct {
@@ -23,11 +22,10 @@ type Jerry struct {
 }
 
 func (j *Jerry) Hello() {
-	name := j.name
-	if name == "Jerry" {
+	if j.name == "Jerry" {
 		return
 	}
-	fmt.Printf("Jerry says, \"Hello my name is %s\"\n", name)
+	fmt.Printf("Jerry says, \"Hello my name is %s\"\n", j.name)
 }
 
 func main() {
